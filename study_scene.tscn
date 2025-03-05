@@ -1,0 +1,470 @@
+[gd_scene load_steps=24 format=3 uid="uid://b6kicrexnw7fw"]
+
+[ext_resource type="Script" uid="uid://rrnyq5qpxilc" path="res://study_scene.gd" id="1_e55vo"]
+[ext_resource type="Script" uid="uid://dw0trexwr7apa" path="res://color_scroll.gd" id="2_qvxix"]
+[ext_resource type="Script" uid="uid://dho8t31an60u5" path="res://card_backing.gd" id="2_xu6yi"]
+[ext_resource type="Script" uid="uid://c4swy1hejl22f" path="res://hover_growth_fx.gd" id="3_qvxix"]
+[ext_resource type="Script" uid="uid://dhq4bf8vc0g6k" path="res://file_checksum.gd" id="4_gbyd1"]
+[ext_resource type="Script" uid="uid://18jfubnclyj8" path="res://hot_reload_dialogue.gd" id="5_l06wp"]
+[ext_resource type="Script" uid="uid://c7t6wa2ynepux" path="res://error_button.gd" id="6_qvxix"]
+
+[sub_resource type="Gradient" id="Gradient_xu6yi"]
+offsets = PackedFloat32Array(0, 0.124098, 0.304473, 0.466089, 0.632035, 0.805195, 1)
+colors = PackedColorArray(1, 0.286275, 0.486275, 1, 0.970056, 0.560441, 0.404431, 1, 0.984011, 0.76912, 0.395925, 1, 0.627451, 0.878431, 0.462745, 1, 0.427451, 0.670588, 0.835294, 1, 0.247059, 0.172549, 0.694118, 1, 1, 0.286275, 0.486275, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qjohk"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.462291, 0.462291, 0.46229, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0, 0, 0, 0.231373)
+shadow_size = 5
+shadow_offset = Vector2(10, 10)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xu6yi"]
+content_margin_left = 100.0
+content_margin_top = 50.0
+content_margin_bottom = 50.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_6nt82"]
+font_size = 41
+font_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.145098)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="Animation" id="Animation_6nt82"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(326, 74)]
+}
+
+[sub_resource type="Animation" id="Animation_qjohk"]
+resource_name = "flip"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 2.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 1), Vector2(1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.266667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"set_contents"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_qvxix"]
+resource_name = "next"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.5),
+"transitions": PackedFloat32Array(1, 2.14355, 1),
+"update": 0,
+"values": [Vector2(326, 74), Vector2(326, -1000), Vector2(326, 74)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.266667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"update_card"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_gbyd1"]
+resource_name = "last"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.5),
+"transitions": PackedFloat32Array(1, 2.14355, 1),
+"update": 0,
+"values": [Vector2(326, 74), Vector2(326, 1000), Vector2(326, 74)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.266667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"update_card"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6tapo"]
+_data = {
+&"RESET": SubResource("Animation_6nt82"),
+&"flip": SubResource("Animation_qjohk"),
+&"last": SubResource("Animation_gbyd1"),
+&"next": SubResource("Animation_qvxix")
+}
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qvxix"]
+content_margin_right = 30.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_qvxix"]
+font_size = 20
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gbyd1"]
+content_margin_left = 30.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6nt82"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.462291, 0.462291, 0.46229, 1)
+corner_radius_top_left = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0, 0, 0, 0.231373)
+shadow_offset = Vector2(10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2cp4m"]
+bg_color = Color(0, 0, 0, 0.619608)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tm4ym"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_bepng"]
+font_size = 21
+
+[node name="StudyScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e55vo")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+script = ExtResource("2_qvxix")
+ramp = SubResource("Gradient_xu6yi")
+step = 0.125
+
+[node name="Flashcard" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -250.0
+offset_right = 250.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(250, 250)
+theme_override_styles/panel = SubResource("StyleBoxFlat_qjohk")
+script = ExtResource("2_xu6yi")
+
+[node name="FlashcardContent" type="Label" parent="Flashcard"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xu6yi")
+label_settings = SubResource("LabelSettings_6nt82")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+text_overrun_behavior = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Flashcard"]
+libraries = {
+&"": SubResource("AnimationLibrary_6tapo")
+}
+
+[node name="State" type="Label" parent="Flashcard"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -98.0
+offset_top = -69.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qvxix")
+text = "Front"
+label_settings = SubResource("LabelSettings_qvxix")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Count" type="Label" parent="Flashcard"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -69.0
+offset_right = 98.0
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_gbyd1")
+text = "0/0"
+label_settings = SubResource("LabelSettings_qvxix")
+vertical_alignment = 1
+
+[node name="NextButton" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 324.0
+offset_top = -20.0
+offset_right = 364.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.785398
+pivot_offset = Vector2(20, 20)
+theme_override_styles/panel = SubResource("StyleBoxFlat_6nt82")
+
+[node name="HoverGrowthFX" type="Node" parent="NextButton"]
+script = ExtResource("3_qvxix")
+
+[node name="LastButton" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -354.0
+offset_top = -20.0
+offset_right = -314.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -2.35619
+pivot_offset = Vector2(20, 20)
+theme_override_styles/panel = SubResource("StyleBoxFlat_6nt82")
+
+[node name="HoverGrowthFX" type="Node" parent="LastButton"]
+script = ExtResource("3_qvxix")
+
+[node name="HotReloader" type="Node" parent="."]
+script = ExtResource("4_gbyd1")
+
+[node name="HotReloadTimer" type="Timer" parent="HotReloader"]
+wait_time = 0.5
+autostart = true
+
+[node name="ErrorDialogue" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2cp4m")
+
+[node name="DialogueContents" type="Panel" parent="ErrorDialogue"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -427.5
+offset_top = -150.0
+offset_right = 427.5
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tm4ym")
+
+[node name="Dialogue" type="Label" parent="ErrorDialogue/DialogueContents"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -331.0
+offset_top = -40.0
+offset_right = 331.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "An unexpected error has occured."
+label_settings = SubResource("LabelSettings_bepng")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OkButton" type="Button" parent="ErrorDialogue/DialogueContents"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -86.5
+offset_top = 27.5
+offset_right = 86.5
+offset_bottom = 72.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "OK"
+script = ExtResource("6_qvxix")
+
+[node name="HotReloadDialogue" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2cp4m")
+script = ExtResource("5_l06wp")
+
+[node name="DialogueContents" type="Panel" parent="HotReloadDialogue"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -427.5
+offset_top = -150.0
+offset_right = 427.5
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tm4ym")
+
+[node name="Dialogue" type="Label" parent="HotReloadDialogue/DialogueContents"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -331.0
+offset_top = -40.0
+offset_right = 331.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "The current card list has been modified, would you like to reload?"
+label_settings = SubResource("LabelSettings_bepng")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="YesButton" type="Button" parent="HotReloadDialogue/DialogueContents"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 13.5
+offset_top = 27.5
+offset_right = 186.5
+offset_bottom = 72.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "YES"
+
+[node name="NoButton" type="Button" parent="HotReloadDialogue/DialogueContents"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -186.5
+offset_top = 27.5
+offset_right = -13.5
+offset_bottom = 72.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "NO"

@@ -1,0 +1,103 @@
+extends Control
+
+var dict : Dictionary[String, String]
+
+@onready var error_dialogue = $ErrorDialogue
+@onready var error_dialogue_msg = %Dialogue
+
+@onready var next_button = $NextButton
+@onready var last_button = $LastButton
+@onready var flashcard = $Flashcard as Flashcard
+@onready var flashcard_content = $Flashcard/FlashcardContent
+@onready var hot_reloader = $HotReloader as HotReloader
+@onready var count = $Flashcard/Count as Label
+
+var target_file_name : String = ""
+
+var card_index = 0
+
+var next_button_hovered : bool = false
+var last_button_hovered : bool = false
+
+func _ready():
+	error_dialogue.hide()
+	handle_signals()
+	load_cards()
+	update_card()
+	count.text = str(card_index + 1) + "/" + str(dict.size()) 
+	
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.button_mask == MOUSE_BUTTON_MASK_LEFT:
+			if next_button_hovered && card_index != dict.size() - 1:
+				card_index += 1
+				flashcard.next()
+			if last_button_hovered && card_index != 0:
+				card_index -= 1
+				flashcard.last()
+
+func load_cards():
+	var dir = DirAccess.open("")
+	
+	if dir == null: 
+		error_dialogue_msg.text = "Couldn't open the executable directory."
+		error_dialogue.show()
+		return
+		
+	var files = dir.get_files()
+	
+	for file in files:
+		if file.get_extension() == "cards":
+			target_file_name = file
+			hot_reloader.path = target_file_name
+			hot_reloader.start()
+			break
+	
+	if target_file_name == "":
+		error_dialogue_msg.text = "Couldn't find a file with the '.cards' extension."
+		error_dialogue.show()
+		return
+	
+	var card_list = FileAccess.open(target_file_name, FileAccess.READ)
+	
+	if card_list == null:
+		error_dialogue_msg.text = "Couldn't open the card list file."
+		error_dialogue.show()
+		return
+		
+	var card_list_contents = card_list.get_as_text()
+	for card in card_list_contents.split("\n"):
+		var filtered = card
+		var pair : PackedStringArray = filtered.split(",")
+
+		if pair.size() == 2:
+			pair[0] = filter_text(pair[0])
+			pair[1] = filter_text(pair[1])
+			dict[pair[0]] = pair[1]
+
+func handle_signals():
+	next_button.mouse_entered.connect(func(): next_button_hovered = true)
+	next_button.mouse_exited.connect(func(): next_button_hovered = false)
+	last_button.mouse_entered.connect(func(): last_button_hovered = true)
+	last_button.mouse_exited.connect(func(): last_button_hovered = false)
+
+func print_current_index():
+	if dict.size() > 0:
+		var key = dict.keys()[card_index] 
+		var value = dict[key]
+		print(key + " " + value)
+
+func filter_text(text: String) -> String:
+	var filtered = text
+	filtered = filtered.strip_edges(true, true)
+	filtered = filtered.replace("\t", "")
+	filtered = filtered.replace("\r", "")
+	return filtered
+
+func update_card():
+	var key = dict.keys()[card_index] 
+	var value = dict[key]
+	flashcard.front_text = key
+	flashcard.back_text = value
+	flashcard.reset_state()
+	count.text = str(card_index + 1) + "/" + str(dict.size()) 
