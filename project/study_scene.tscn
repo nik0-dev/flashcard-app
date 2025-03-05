@@ -1,12 +1,12 @@
 [gd_scene load_steps=24 format=3 uid="uid://b6kicrexnw7fw"]
 
-[ext_resource type="Script" uid="uid://rrnyq5qpxilc" path="res://study_scene.gd" id="1_e55vo"]
-[ext_resource type="Script" uid="uid://dw0trexwr7apa" path="res://color_scroll.gd" id="2_qvxix"]
-[ext_resource type="Script" uid="uid://dho8t31an60u5" path="res://card_backing.gd" id="2_xu6yi"]
-[ext_resource type="Script" uid="uid://c4swy1hejl22f" path="res://hover_growth_fx.gd" id="3_qvxix"]
-[ext_resource type="Script" uid="uid://dhq4bf8vc0g6k" path="res://file_checksum.gd" id="4_gbyd1"]
-[ext_resource type="Script" uid="uid://18jfubnclyj8" path="res://hot_reload_dialogue.gd" id="5_l06wp"]
-[ext_resource type="Script" uid="uid://c7t6wa2ynepux" path="res://error_button.gd" id="6_qvxix"]
+[ext_resource type="Script" uid="uid://c8k7d356pcib1" path="res://src/study_scene.gd" id="1_e55vo"]
+[ext_resource type="Script" uid="uid://dw0trexwr7apa" path="res://src/color_scroll.gd" id="2_qvxix"]
+[ext_resource type="Script" uid="uid://dho8t31an60u5" path="res://src/card_backing.gd" id="2_xu6yi"]
+[ext_resource type="Script" uid="uid://c4swy1hejl22f" path="res://src/hover_growth_fx.gd" id="3_qvxix"]
+[ext_resource type="Script" uid="uid://dhq4bf8vc0g6k" path="res://src/file_checksum.gd" id="4_gbyd1"]
+[ext_resource type="Script" uid="uid://18jfubnclyj8" path="res://src/hot_reload_dialogue.gd" id="5_l06wp"]
+[ext_resource type="Script" uid="uid://c7t6wa2ynepux" path="res://src/error_button.gd" id="6_qvxix"]
 
 [sub_resource type="Gradient" id="Gradient_xu6yi"]
 offsets = PackedFloat32Array(0, 0.124098, 0.304473, 0.466089, 0.632035, 0.805195, 1)
@@ -96,8 +96,8 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_qvxix"]
-resource_name = "next"
+[sub_resource type="Animation" id="Animation_gbyd1"]
+resource_name = "last"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -109,7 +109,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.266667, 0.5),
 "transitions": PackedFloat32Array(1, 2.14355, 1),
 "update": 0,
-"values": [Vector2(326, 74), Vector2(326, -1000), Vector2(326, 74)]
+"values": [Vector2(326, 74), Vector2(326, 1000), Vector2(326, 74)]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -126,8 +126,8 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_gbyd1"]
-resource_name = "last"
+[sub_resource type="Animation" id="Animation_qvxix"]
+resource_name = "next"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -139,7 +139,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.266667, 0.5),
 "transitions": PackedFloat32Array(1, 2.14355, 1),
 "update": 0,
-"values": [Vector2(326, 74), Vector2(326, 1000), Vector2(326, 74)]
+"values": [Vector2(326, 74), Vector2(326, -1000), Vector2(326, 74)]
 }
 tracks/1/type = "method"
 tracks/1/imported = false

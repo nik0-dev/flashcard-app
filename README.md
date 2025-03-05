@@ -1,2 +1,2 @@
 # FlashcardApp
- a lightweight flashcard app with hot reloading
+a lightweight flashcard app with hot reloading made in godot.
