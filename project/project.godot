@@ -13,6 +13,8 @@ config_version=5
 config/name="FlashcardApp"
 run/main_scene="uid://b6kicrexnw7fw"
 config/features=PackedStringArray("4.4", "GL Compatibility")
+config/icon="uid://c60cddpl367b4"
+config/windows_native_icon="res://res/icon.ico"
 
 [display]
 
