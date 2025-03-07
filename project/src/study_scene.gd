@@ -11,6 +11,9 @@ var dict : Dictionary[String, String]
 @onready var flashcard_content = $Flashcard/FlashcardContent
 @onready var hot_reloader = $HotReloader as HotReloader
 @onready var count = $Flashcard/Count as Label
+@onready var tts = $TTS
+@onready var play_tts = $PlayTTS
+@onready var open_list = $OpenList
 
 var target_file_name : String = ""
 
@@ -19,12 +22,26 @@ var card_index = 0
 var next_button_hovered : bool = false
 var last_button_hovered : bool = false
 
+var tts_front_threads : Array[Thread] = []
+var tts_back_threads  : Array[Thread] = []
+
 func _ready():
 	error_dialogue.hide()
 	handle_signals()
 	load_cards()
 	update_card()
 	count.text = str(card_index + 1) + "/" + str(dict.size()) 
+
+func _process(_delta):
+	for thread in tts_front_threads:
+		if !thread.is_alive():
+			tts_front_threads.erase(thread)
+			thread.wait_to_finish()
+	for thread in tts_back_threads:
+		if !thread.is_alive():
+			tts_back_threads.erase(thread)
+			thread.wait_to_finish()
+
 	
 func _input(event):
 	if event is InputEventMouseButton:
@@ -80,6 +97,14 @@ func handle_signals():
 	next_button.mouse_exited.connect(func(): next_button_hovered = false)
 	last_button.mouse_entered.connect(func(): last_button_hovered = true)
 	last_button.mouse_exited.connect(func(): last_button_hovered = false)
+	play_tts.button_up.connect(func():
+		if tts_front_threads.size() == 0 && tts_back_threads.size() == 0:
+			var file_name = "front.wav" if flashcard.state == Flashcard.State.FRONT else "back.wav"
+			tts.play_tts_file(file_name)
+	)
+	open_list.button_up.connect(func():
+		OS.shell_open(tts.working_dir + "../list.cards")
+	)
 
 func print_current_index():
 	if dict.size() > 0:
@@ -95,9 +120,16 @@ func filter_text(text: String) -> String:
 	return filtered
 
 func update_card():
-	var key = dict.keys()[card_index] 
-	var value = dict[key]
-	flashcard.front_text = key
-	flashcard.back_text = value
-	flashcard.reset_state()
-	count.text = str(card_index + 1) + "/" + str(dict.size()) 
+	if dict.size() > 0:
+		var key = dict.keys()[card_index] 
+		var value = dict[key]
+		flashcard.front_text = key
+		flashcard.back_text = value
+		flashcard.reset_state()
+		count.text = str(card_index + 1) + "/" + str(dict.size()) 
+		var front_thread := Thread.new()
+		var back_thread := Thread.new()
+		front_thread.start(tts.generate_tts_file.bind(flashcard.front_text, "pl_PL-gosia-medium", "front.wav"))
+		tts_front_threads.push_back(front_thread)
+		back_thread.start(tts.generate_tts_file.bind(flashcard.back_text, "en_US-amy-low", "back.wav"))
+		tts_back_threads.push_back(back_thread)

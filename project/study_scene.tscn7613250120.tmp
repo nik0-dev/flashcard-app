@@ -178,7 +178,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_gbyd1"]
 resource_name = "last"
-length = 2.0
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -186,7 +186,7 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.466667, 2),
+"times": PackedFloat32Array(0, 0.266667, 0.5),
 "transitions": PackedFloat32Array(1, 2.14355, 1),
 "update": 0,
 "values": [Vector2(326, 74), Vector2(326, 1000), Vector2(326, 74)]
@@ -198,7 +198,7 @@ tracks/1/path = NodePath("..")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.433333),
+"times": PackedFloat32Array(0.266667),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -208,7 +208,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_qvxix"]
 resource_name = "next"
-length = 2.0
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -216,7 +216,7 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 2),
+"times": PackedFloat32Array(0, 0.266667, 0.5),
 "transitions": PackedFloat32Array(1, 2.14355, 1),
 "update": 0,
 "values": [Vector2(326, 74), Vector2(326, -1000), Vector2(326, 74)]
@@ -228,7 +228,7 @@ tracks/1/path = NodePath("..")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.5),
+"times": PackedFloat32Array(0.266667),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -295,6 +295,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 12.0
+offset_right = 12.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
@@ -304,21 +306,16 @@ step = 0.125
 
 [node name="PlayTTS" type="Button" parent="."]
 layout_mode = 1
-offset_left = 1111.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -41.0
 offset_top = 6.0
-offset_right = 1145.0
+offset_right = -7.0
 offset_bottom = 40.0
+grow_horizontal = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_l06wp")
 text = "▶"
-
-[node name="OpenList" type="Button" parent="."]
-layout_mode = 1
-offset_left = 6.0
-offset_top = 8.0
-offset_right = 40.0
-offset_bottom = 42.0
-theme_override_styles/focus = SubResource("StyleBoxEmpty_l06wp")
-text = "☰"
 
 [node name="Spinner" type="TextureProgressBar" parent="."]
 layout_mode = 1
@@ -595,6 +592,6 @@ text = "NO"
 
 [node name="TTS" type="Node" parent="."]
 script = ExtResource("8_gbyd1")
-default_language_pack = "pl_PL-gosia-medium"
+default_language_pack = "en_US-amy-low"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="TTS"]

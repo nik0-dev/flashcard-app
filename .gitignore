@@ -13,3 +13,17 @@ export_presets.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# Piper Ignore
+piper/
+
+# TTS Output Ignore
+output.wav
+output.wav.import
+
+# TTS Language Pack Ignore
+*.onnx
+*.oonx.json
+
+# Card List Ignore
+list.cards
