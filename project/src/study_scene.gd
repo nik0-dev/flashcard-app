@@ -14,10 +14,15 @@ var dict : Dictionary[String, String]
 @onready var tts = $TTS
 @onready var play_tts = $PlayTTS
 @onready var open_list = $OpenList
+@onready var shuffle = $Shuffle
 
 var target_file_name : String = ""
 
 var card_index = 0
+
+var front_cards : Array[String] = []
+var back_cards : Array[String] = []
+var ordering : Array[int] = []
 
 var next_button_hovered : bool = false
 var last_button_hovered : bool = false
@@ -29,8 +34,6 @@ func _ready():
 	error_dialogue.hide()
 	handle_signals()
 	load_cards()
-	update_card()
-	count.text = str(card_index + 1) + "/" + str(dict.size()) 
 
 func _process(_delta):
 	for thread in tts_front_threads:
@@ -88,9 +91,11 @@ func load_cards():
 		var pair : PackedStringArray = filtered.split(",")
 
 		if pair.size() == 2:
-			pair[0] = filter_text(pair[0])
-			pair[1] = filter_text(pair[1])
-			dict[pair[0]] = pair[1]
+			front_cards.append(filter_text(pair[0]))
+			back_cards.append(filter_text(pair[1]))
+			ordering.append(ordering.size())
+	
+	update_card()
 
 func handle_signals():
 	next_button.mouse_entered.connect(func(): next_button_hovered = true)
@@ -105,12 +110,10 @@ func handle_signals():
 	open_list.button_up.connect(func():
 		OS.shell_open(tts.working_dir + "../list.cards")
 	)
-
-func print_current_index():
-	if dict.size() > 0:
-		var key = dict.keys()[card_index] 
-		var value = dict[key]
-		print(key + " " + value)
+	shuffle.button_up.connect(func():
+		ordering.shuffle()
+		update_card()
+	)
 
 func filter_text(text: String) -> String:
 	var filtered = text
@@ -120,13 +123,11 @@ func filter_text(text: String) -> String:
 	return filtered
 
 func update_card():
-	if dict.size() > 0:
-		var key = dict.keys()[card_index] 
-		var value = dict[key]
-		flashcard.front_text = key
-		flashcard.back_text = value
+	if ordering.size() > 0:
+		flashcard.front_text = front_cards[ordering[card_index]]
+		flashcard.back_text = back_cards[ordering[card_index]]
 		flashcard.reset_state()
-		count.text = str(card_index + 1) + "/" + str(dict.size()) 
+		count.text = str(card_index + 1) + "/" + str(ordering.size()) 
 		var front_thread := Thread.new()
 		var back_thread := Thread.new()
 		front_thread.start(tts.generate_tts_file.bind(flashcard.front_text, "pl_PL-gosia-medium", "front.wav"))

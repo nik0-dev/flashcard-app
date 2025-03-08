@@ -302,6 +302,14 @@ script = ExtResource("2_qvxix")
 ramp = SubResource("Gradient_xu6yi")
 step = 0.125
 
+[node name="Shuffle" type="Button" parent="."]
+offset_left = 1073.0
+offset_top = 6.0
+offset_right = 1107.0
+offset_bottom = 40.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_l06wp")
+text = "⇄"
+
 [node name="PlayTTS" type="Button" parent="."]
 layout_mode = 1
 offset_left = 1111.0
