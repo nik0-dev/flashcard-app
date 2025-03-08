@@ -130,7 +130,7 @@ func update_card():
 		count.text = str(card_index + 1) + "/" + str(ordering.size()) 
 		var front_thread := Thread.new()
 		var back_thread := Thread.new()
-		front_thread.start(tts.generate_tts_file.bind(flashcard.front_text, "pl_PL-gosia-medium", "front.wav"))
+		front_thread.start(tts.generate_tts_file.bind(flashcard.front_text, "pl_PL-darkman-medium", "front.wav"))
 		tts_front_threads.push_back(front_thread)
 		back_thread.start(tts.generate_tts_file.bind(flashcard.back_text, "en_US-amy-low", "back.wav"))
 		tts_back_threads.push_back(back_thread)
